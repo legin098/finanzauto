@@ -1,11 +1,12 @@
+import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
-import {SafeAreaView, Text} from 'react-native';
+import Navigation from './common/presenter/navigation';
 
 const App = () => {
   return (
-    <SafeAreaView>
-      <Text>Finanzauto</Text>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Navigation />
+    </NavigationContainer>
   );
 };
 
