@@ -5,19 +5,19 @@ import {SuspendedView} from '@src/common/presenter/components';
 
 const Stack = createStackNavigator<AuthStackParamList>();
 
-const SignIn = lazy(() => import('../pages/SignIn'));
+const Home = lazy(() => import('../pages/Home'));
 
-const AuthNavigation = () => {
+const UsersNavigation = () => {
   return (
     <Stack.Navigator
-      initialRouteName="SignIn"
+      initialRouteName="Home"
       screenOptions={{
         headerShown: false,
       }}>
-      <Stack.Screen name="SignIn">
+      <Stack.Screen name="Home">
         {props => (
           <SuspendedView hasSafeArea>
-            <SignIn {...props} />
+            <Home {...props} />
           </SuspendedView>
         )}
       </Stack.Screen>
@@ -25,4 +25,4 @@ const AuthNavigation = () => {
   );
 };
 
-export default AuthNavigation;
+export default UsersNavigation;
