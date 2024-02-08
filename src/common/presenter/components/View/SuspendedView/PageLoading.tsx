@@ -1,7 +1,7 @@
 import React from 'react';
 import {SafeAreaView, ActivityIndicator, Text} from 'react-native';
 import {styles} from './styles';
-import {COLORS} from '@src/common/theme';
+import {COLORS} from '@src/common/presenter/theme';
 
 const PageLoading = () => (
   <SafeAreaView style={styles.container}>
