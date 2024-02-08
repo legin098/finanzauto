@@ -1,12 +1,16 @@
 import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import Navigation from './common/presenter/navigation';
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 
+const queryClient = new QueryClient();
 const App = () => {
   return (
-    <NavigationContainer>
-      <Navigation />
-    </NavigationContainer>
+    <QueryClientProvider client={queryClient}>
+      <NavigationContainer>
+        <Navigation />
+      </NavigationContainer>
+    </QueryClientProvider>
   );
 };
 
