@@ -2,24 +2,21 @@ import {API_KEY, API_URL} from '@env';
 import {IHttp} from '@src/common/domain/repositories';
 import {UserEntity} from '@src/users/domain/models';
 import {IUsersRepository} from '@src/users/domain/repositories';
+import {UserAdapter} from '../adapters';
+import {ListUserDto, UserDto} from '../models';
 
 export class UsersRepositoryImpl implements IUsersRepository {
   constructor(readonly http: IHttp) {}
 
   createUser = async (user: UserEntity): Promise<void> => {
     try {
-      //const body = ProductAdapter.ProductEntityToDto(product);
-
+      const body = UserAdapter.userToDto(user);
       await this.http.request<void>({
         method: 'post',
         headers: {
           'app-id': API_KEY,
         },
-        body: {
-          firstName: 'Jesus',
-          lastName: 'Cruz',
-          email: 'test@test.com',
-        },
+        body,
         url: `${API_URL}/user/create`,
       });
     } catch (error) {
@@ -27,17 +24,21 @@ export class UsersRepositoryImpl implements IUsersRepository {
     }
   };
 
-  getListUser = async (): Promise<UserEntity[]> => {
+  getListUser = async (limit: number, page: number): Promise<UserEntity[]> => {
     try {
-      const response = await this.http.request<any>({
+      const response = await this.http.request<ListUserDto>({
         method: 'get',
         headers: {
           'app-id': API_KEY,
         },
+        params: {
+          limit,
+          page,
+        },
         url: `${API_URL}/user`,
       });
 
-      return [];
+      return UserAdapter.usersDtotoEntity(response.data);
     } catch (error) {
       throw new Error('[Service] Error get list user');
     }
@@ -45,7 +46,7 @@ export class UsersRepositoryImpl implements IUsersRepository {
 
   getUserById = async (id: string): Promise<UserEntity> => {
     try {
-      const response = await this.http.request<UserEntity>({
+      const response = await this.http.request<UserDto>({
         method: 'get',
         headers: {
           'app-id': API_KEY,
@@ -53,7 +54,7 @@ export class UsersRepositoryImpl implements IUsersRepository {
         url: `${API_URL}/user/${id}`,
       });
 
-      return response;
+      return UserAdapter.userDtotoEntity(response);
     } catch (error) {
       throw new Error('[Service] Error get user by id');
     }
@@ -61,8 +62,6 @@ export class UsersRepositoryImpl implements IUsersRepository {
 
   updateUser = async (user: UserEntity): Promise<void> => {
     try {
-      //const body = ProductAdapter.ProductEntityToDto(product);
-
       await this.http.request<any>({
         method: 'put',
         headers: {
@@ -78,7 +77,7 @@ export class UsersRepositoryImpl implements IUsersRepository {
 
   deleteUser = async (id: string): Promise<void> => {
     try {
-      await this.http.request<any>({
+      await this.http.request<void>({
         method: 'delete',
         headers: {
           'app-id': API_KEY,
