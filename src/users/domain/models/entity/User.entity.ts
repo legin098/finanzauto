@@ -3,7 +3,7 @@ export type Gender = 'male' | 'female' | 'other' | '';
 export interface UserEntity {
   id: string;
   title: Title;
-  name: string;
+  firstName: string;
   lastName: string;
   gender: Gender;
   email: string;
@@ -15,9 +15,9 @@ export interface UserEntity {
 }
 
 export interface Location {
-  calle: string;
-  ciudad: string;
-  estado: string;
-  pais: string;
-  zonaHoraria: string;
+  street: string;
+  city: string;
+  state: string;
+  country: string;
+  timezone: string;
 }

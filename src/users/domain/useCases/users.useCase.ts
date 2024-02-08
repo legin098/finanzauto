@@ -10,8 +10,8 @@ export class UsersUseCase {
   getUserById = async (id: string): Promise<UserEntity> =>
     await this.repository.getUserById(id);
 
-  getListUser = async (): Promise<UserEntity[]> =>
-    await this.repository.getListUser();
+  getListUser = async (limit: number, page: number): Promise<UserEntity[]> =>
+    await this.repository.getListUser(limit, page);
 
   updateUser = async (user: UserEntity): Promise<void> =>
     await this.repository.updateUser(user);
